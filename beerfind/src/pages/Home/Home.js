@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Grommet, Box, Text, Button } from "grommet";
 import useFetch from "../../hooks/useFetch";
 import Card from "../../components/Card";
+import SearchBar from "./SearchBar";
 
 function Home() {
   const PAGE_SIZE = 10;
@@ -15,6 +16,7 @@ function Home() {
 
   return (
     <div>
+      {/* <SearchBar/> */}
       <div className="row row-cols-1 row-cols-md-3 g-4 ">
         {data && data.map((item) => <Card item={item} />)}{" "}
       </div>
