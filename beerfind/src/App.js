@@ -9,6 +9,7 @@ import { fetchSearchResults } from './utils/utils';
 import ListItem from './utils/ListItem';
 import SearchInput from './utils/SearchInput';
 import debounce from 'lodash.debounce';
+import AbvButton from "./components/Buttons/AbvButton";
 
 const fetchData = async (query, cb) => {
   console.warn('fetching ' + query);
@@ -34,6 +35,7 @@ function App() {
   return (
     <>
       <Navbar />
+     <AbvButton/>
       <Routes>
         {routes.map((route) => (
           <Route

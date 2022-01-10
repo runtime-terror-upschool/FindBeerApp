@@ -3,6 +3,9 @@ import { Grommet, Box, Text, Button } from "grommet";
 import useFetch from "../../hooks/useFetch";
 import Card from "../../components/Card";
 import SearchBar from "./SearchBar";
+import AbvButton from "../../components/Buttons/AbvButton";
+import PhSlider from "../../components/Sliders/PhSlider";
+
 
 function Home() {
   const PAGE_SIZE = 10;
@@ -14,9 +17,11 @@ function Home() {
   const nextPage = () => setPage(page + 1);
   const prevPage = () => setPage(page - 1);
 
-  return (
+  return (<>
+   <div>
+     <PhSlider/>
+   </div>
     <div>
-      {/* <SearchBar/> */}
       <div className="row row-cols-1 row-cols-md-3 g-4 ">
         {data && data.map((item) => <Card item={item} />)}{" "}
       </div>
@@ -42,6 +47,7 @@ function Home() {
         </Box>
       </Grommet>
     </div>
+    </>
   );
 }
 

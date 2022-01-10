@@ -19,7 +19,8 @@ const res = await fetch(url);
 // }
 const resJson = res.json();
 return resJson;
-} else {
+} 
+else {
 return [];
 }
 };
