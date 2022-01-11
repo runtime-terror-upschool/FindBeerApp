@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import routes from "../../routes";
+import {IoIosBeer} from "react-icons/io"
 
 export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
       <div className="container">
-        <Link className="navbar-brand" to="/">
-          BeerLA
+        <Link className="navbar-brand m-3" to="/">
+          <IoIosBeer className="mx-2"/>
+         BeerLA 
         </Link>
         <button
           className="navbar-toggler"

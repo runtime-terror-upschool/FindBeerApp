@@ -79,17 +79,20 @@ function AbvButton(){
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        // alignItems: 'center',
+        alignItems: 'center',
         alignItems: 'space-between',
+        justifyContent: 'center',
         '& > *': {
           m: 1,
         },
       }}
     >
-      <ButtonGroup variant="outlined" aria-label="outlined button group" >
-        <Button value="none" disabled={false} onClick={handleNone}>None</Button>
-        <Button value="greater" onClick={handleGreater} disabled={isActive}>Greater</Button>
-        <Button value="lower" onClick={handleLower} disabled={isActive}>Lower</Button>
+      <div className="container">
+     
+      <ButtonGroup  type="button" className="btn btn-dark btn-lg" variant="outlined"aria-label="outlined button group" >
+        <Button className="btn btn-dark btn-lg" value="none" disabled={false} onClick={handleNone}>None</Button>
+        <Button className="btn btn-dark btn-lg" value="greater" onClick={handleGreater} disabled={isActive}>Greater</Button>
+        <Button className="btn btn-dark btn-lg" value="lower" onClick={handleLower} disabled={isActive}>Lower</Button>
         <Slider
           size="medium"
           aria-label="Medium"
@@ -100,7 +103,8 @@ function AbvButton(){
           disabled={isActive}
         />
       </ButtonGroup>
-
+      
+      </div>
       <Input
             value={value}
             size="small"
