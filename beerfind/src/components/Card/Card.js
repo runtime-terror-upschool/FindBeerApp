@@ -2,7 +2,7 @@ import React from "react";
 
 function Card({ item }) {
   return (
-    <div className="col col-sm-6 col-md-3 py-3">
+    <div className="card border-dark col col-sm-6 col-md-3 py-3">
       <div className="card rounded" key={item.id}>
         <img
           src={item.image_url}

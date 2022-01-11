@@ -18,15 +18,19 @@ function Home() {
   const prevPage = () => setPage(page - 1);
 
   return (<>
-   <div>
+   
+  <div  className="container mb-3">
+   <div className="container  mb-3" >
      <PhSlider/>
-   </div>
-    <div>
+      </div>
       <div className="row row-cols-1 row-cols-md-3 g-4 ">
         {data && data.map((item) => <Card item={item} />)}{" "}
       </div>
       <Grommet>
+
+      <div className="container m-5">
         <Box justify="center" direction="row">
+        
           <Button
             disabled={page === 1}
             primary
@@ -35,7 +39,8 @@ function Home() {
             focusIndicator={true}
             onClick={prevPage}
           />
-          <Text margin="10px">Page {page}</Text>
+        
+          <Text margin="10px">Page-{page}</Text>
           <Button
             disabled={data.length < PAGE_SIZE}
             primary
@@ -45,6 +50,7 @@ function Home() {
             onClick={nextPage}
           />
         </Box>
+        </div>
       </Grommet>
     </div>
     </>
