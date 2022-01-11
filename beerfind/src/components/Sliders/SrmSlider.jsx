@@ -10,15 +10,12 @@ import Grid from '@mui/material/Grid';
 import { useState, useEffect } from 'react';
 import Card from '../Card';
 
-function valuetext(value) {
-  return `${value}`;
-}
 
-export default function PhSlider() {
+export default function SrmSlider() {
 
   const BASE_URL = 'https://api.punkapi.com/v2/beers';
   const [data, setData] = useState([]);
-  const [value, setValue] = React.useState([0, 0]);
+  const [value, setValue] = React.useState([]);
   const [isActive, setActive] = useState(true);
   const [checked, setChecked] = React.useState(true);
   
@@ -32,17 +29,17 @@ export default function PhSlider() {
 }, []);
   
 console.log(data);
+
 const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log("min",value[0])
-    console.log("max",value[1])
-    {data
-        .filter((item) => value[0] <= item.ph && value[1] >= item.ph)
-        .map((item) => ( 
+    data
+        .filter((item) => item.srm>=value)
+        .map((item) => ( console.log("item", item),
             <div className="row row-cols-1 row-cols-md-3 g-4 ">
              <Card item={item} />
-          </div>))}
-
+          </div>))
+ console.log("srm data", data);
+ console.log("srm min value", value);
   };
   const handleChangeCheckbox = (event) => {
     setChecked(event.target.checked);
@@ -61,28 +58,22 @@ const handleChange = (event, newValue) => {
           <FormGroup>
             <FormControlLabel
               control={<Checkbox onChange={handleChangeCheckbox} />}
-              label="PH"
+              label="SRM"
             />
           </FormGroup>
         </Grid>
         <Grid item xs={6} md={2}>
-          <Slider
-            value={value}
-            onChange={handleChange}
-            valueLabelDisplay="auto"
-            getAriaValueText={valuetext}
-            min={0}
-            step={1}
-            max={7}
-            disabled={isActive}
-          />
+        <Slider
+          size="medium"
+          aria-label="Medium"
+          valueLabelDisplay="auto"
+          onChange={handleChange}
+          //defaultValue={0} 
+          step={10}  min={0} max={100}
+          disabled={isActive}
+        />
         </Grid>
       </Grid>
-      {/* <Grid container> */}
-        {/* <Grid item xs={2} md={1}> */}
-       
-        {/* </Grid> */}
-      {/* </Grid> */}
     </Box>
   );
 }

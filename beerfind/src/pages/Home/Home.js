@@ -5,6 +5,7 @@ import Card from "../../components/Card";
 import SearchBar from "./SearchBar";
 import AbvButton from "../../components/Buttons/AbvButton";
 import PhSlider from "../../components/Sliders/PhSlider";
+import SrmSlider from "../../components/Sliders/SrmSlider";
 
 
 function Home() {
@@ -19,7 +20,9 @@ function Home() {
 
   return (<>
    <div>
+     <AbvButton/>
      <PhSlider/>
+     <SrmSlider/>
    </div>
     <div>
       <div className="row row-cols-1 row-cols-md-3 g-4 ">

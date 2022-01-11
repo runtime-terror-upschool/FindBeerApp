@@ -35,17 +35,7 @@ function App() {
   return (
     <>
       <Navbar />
-     <AbvButton/>
-      <Routes>
-        {routes.map((route) => (
-          <Route
-            path={route.path}
-            key={route.title}
-            element={<route.element />}
-          ></Route>
-        ))}
-      </Routes>
-     <SearchInput
+      <SearchInput
         value={query}
         onChangeText={e => {
           setQuery(e.target.value);
@@ -60,6 +50,16 @@ function App() {
           />
         </div>
       ))}
+      <Routes>
+        {routes.map((route) => (
+          <Route
+            path={route.path}
+            key={route.title}
+            element={<route.element />}
+          ></Route>
+        ))}
+      </Routes>
+      
       <Footer />
     </>
   );

@@ -95,7 +95,7 @@ function AbvButton(){
           aria-label="Medium"
           valueLabelDisplay="auto"
           onChange={handleSliderChange}
-          defaultValue={30} 
+          defaultValue={0} 
           step={0.5}  min={0} max={50}
           disabled={isActive}
         />
