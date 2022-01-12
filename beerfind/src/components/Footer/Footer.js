@@ -71,6 +71,7 @@ function Footer() {
           </div>
         </div>
       </div>
+      <p className="text-center text-muted">© 2022 RunTime Error , Up School</p>
     </footer>
   );
 }
