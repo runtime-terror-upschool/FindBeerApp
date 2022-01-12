@@ -1,53 +1,105 @@
 import React, { useState } from "react";
-import { Grommet, Box, Text, Button } from "grommet";
-import useFetch from "../../hooks/useFetch";
-import Card from "../../components/Card";
-import SearchBar from "./SearchBar";
-import AbvButton from "../../components/Buttons/AbvButton";
-import PhSlider from "../../components/Sliders/PhSlider";
 
+//
+import useFetch from "../../hooks/useFetch";
+import useQuery from "../../hooks/useQuery";
+import Card from "../../components/Card";
+import Pagination from "../../components/PaginationC";
+import SearchBox from "../../components/SearchBox/SearchBox";
+import PhSlider from "../../components/Sliders/PhSlider";
+import SrmSlider from "../../components/Sliders/SrmSlider";
+import VolumeSlider from "../../components/Sliders/VolumeSlider";
+import { buttonData } from "../../components/Sliders/buttonData";
+import VolumeButton from "../../components/Sliders/VolumeButton";
 
 function Home() {
-  const PAGE_SIZE = 10;
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState("");
+  const [ph, setPh] = useState([0, 7]);
+  const [volume, setVolume] = useState(20);
+  const [srm, setSrm] = useState(0);
+  const [button, setButton] = useState("none");
 
-  const URL = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${PAGE_SIZE}`;
-  const { data } = useFetch(URL, page);
+  const URL = `https://api.punkapi.com/v2/beers?page=${currentPage}&per_page=60&${button}=${volume}`;
+  const SURL = `https://api.punkapi.com/v2`;
+  const { data } = useFetch(URL, currentPage);
   console.log(data);
-  const nextPage = () => setPage(page + 1);
-  const prevPage = () => setPage(page - 1);
+  const { results } = useQuery(SURL, query);
+  console.log(results);
+  console.log(button);
+  console.log(ph);
+  console.log(URL);
+  const itemsCountPerPage = 3;
+  const offset = currentPage * itemsCountPerPage;
+  const currentPageData = data
+    .filter((item) => ph[0] <= item.ph && ph[1] >= item.ph && item.srm >= srm)
+    .slice(offset, offset + itemsCountPerPage);
+  const itemsCount = Math.ceil(data.length / itemsCountPerPage);
+  function handleChangePage(pageNumber) {
+    setCurrentPage(pageNumber);
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+  function handleReset() {
+    setQuery("");
+  }
+  function handleChange(e) {
+    setQuery(e.target.value);
+  }
 
-  return (<>
-   <div>
-     <PhSlider/>
-   </div>
+  return (
     <div>
-      <div className="row row-cols-1 row-cols-md-3 g-4 ">
-        {data && data.map((item) => <Card item={item} />)}{" "}
+      <div className="container">
+        <SearchBox
+          onSubmit={handleSubmit}
+          onChange={handleChange}
+          onReset={handleReset}
+          query={query}
+        />
+        <div className="row my-5 mx-0 justify-centent-center">
+          <h5>Alcohol by Volume</h5>
+          <VolumeSlider
+            value={volume}
+            onChange={(volume) => setVolume(volume)}
+          />
+          <div className="col-xl-4 col-lg-4">
+            {buttonData.map((item) => (
+              <VolumeButton
+                key={item.id}
+                name={item.name}
+                btnName={item.btnName}
+                button={button}
+                isActive={item.isActive}
+                setButton={setButton}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="row my-4 mx-0 justify-centent-center">
+          <h5 className="font-small">Ph</h5>
+          <PhSlider value={ph} onChange={(ph) => setPh(ph)} />
+          <h5 className="font-small">Srm</h5>
+          <SrmSlider value={srm} onChange={(srm) => setSrm(srm)} />
+        </div>
       </div>
-      <Grommet>
-        <Box justify="center" direction="row">
-          <Button
-            disabled={page === 1}
-            primary
-            label="<"
-            size="small"
-            focusIndicator={true}
-            onClick={prevPage}
-          />
-          <Text margin="10px">Page {page}</Text>
-          <Button
-            disabled={data.length < PAGE_SIZE}
-            primary
-            label=">"
-            size="small"
-            focusIndicator={true}
-            onClick={nextPage}
-          />
-        </Box>
-      </Grommet>
+      <div className="container">
+        <div className="row row-cols-1 row-cols-md-3 g-4 ">
+          {results
+            ? results.map((item) => <Card item={item} />)
+            : currentPageData &&
+              currentPageData.map((item) => <Card item={item} />)}
+        </div>
+      </div>
+      <div className="container">
+        <Pagination
+          onChange={handleChangePage}
+          activePage={currentPage}
+          itemsCountPerPage={itemsCountPerPage}
+          totalItemsCount={itemsCount}
+        />
+      </div>
     </div>
-    </>
   );
 }
 

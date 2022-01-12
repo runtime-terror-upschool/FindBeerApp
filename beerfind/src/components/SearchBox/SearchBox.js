@@ -1,12 +1,17 @@
 import React from "react";
 
-function SearchBox({ onSubmit, query, onChange }) {
+function SearchBox({ onSubmit, query, onChange, onReset }) {
   return (
     <div className="box">
-      <form className="form-outline" id="searchForm" onSubmit={onSubmit}>
-        <div className="mb-3">
+      <form
+        className="form-outline"
+        id="searchForm"
+        onSubmit={onSubmit}
+        onReset={onReset}
+      >
+        <div className="mb-3 mt-3">
           <label htmlFor="searchInput" className="form-label">
-            Search Meal
+            Search beer
           </label>
           <input
             onChange={onChange}
@@ -16,8 +21,11 @@ function SearchBox({ onSubmit, query, onChange }) {
             value={query}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-warning ms-2">
           Search
+        </button>
+        <button type="reset" className="btn btn-warning ms-2">
+          Reset
         </button>
       </form>
     </div>

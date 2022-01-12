@@ -6,11 +6,13 @@ function useFetch(url, page) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const fetchData = useCallback(async () => {
     try {
       const { data: resData } = await axios.get(url);
       setData(resData);
+      setFilteredData(resData);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -22,6 +24,6 @@ function useFetch(url, page) {
     fetchData();
   }, [url]);
 
-  return { error, loading, data };
+  return { error, loading, data, filteredData };
 }
 export default useFetch;
